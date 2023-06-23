@@ -99,10 +99,12 @@ public class UsuarioService {
 		
 		return encoder.encode(senha);
 
+
 	}
 
 	private String gerarToken(String usuario) {
 		return "Bearer " + jwtService.generateToken(usuario);
 	}
+
 
 }

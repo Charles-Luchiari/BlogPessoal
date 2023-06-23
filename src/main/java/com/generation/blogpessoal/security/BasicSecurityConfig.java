@@ -17,18 +17,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 public class BasicSecurityConfig {
 
-    @Autowired
+	@Autowired
     private JwtAuthFilter authFilter;
 
     @Bean
     UserDetailsService userDetailsService() {
-
         return new UserDetailsServiceImpl();
     }
 
@@ -48,16 +45,17 @@ public class BasicSecurityConfig {
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
             throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    	return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .sessionManagement(management -> management
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)).csrf(withDefaults())
-                .cors(withDefaults());
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().csrf().disable()
+                .cors();
 
         http
                 .authorizeHttpRequests((auth) -> auth
@@ -71,7 +69,5 @@ public class BasicSecurityConfig {
                 .httpBasic();
 
         return http.build();
-
     }
-
 }
