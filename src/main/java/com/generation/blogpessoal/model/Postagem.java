@@ -32,6 +32,8 @@ public class Postagem {
 	@Size(min = 10, max = 1000, message = "Este atributo tem que ter no minimo 10 caracteres e no maximo 1000 caracteres")
 	private String texto;
 	
+	private String foto;
+	
 	@UpdateTimestamp
 	private LocalDateTime data;
 	
@@ -43,6 +45,14 @@ public class Postagem {
 	@JsonIgnoreProperties("postagem")
 	private Usuario usuario;
 	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
 	public Tema getTema() {
 		return tema;
 	}
